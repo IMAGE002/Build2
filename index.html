@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    font-family: 'Manrope', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: #1a2332;
+    position: relative;
+    color: #ffffff;
+  }
+
+  /* Moving SVG Background */
+  .bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    opacity: 0.08;
+  }
+
+  .bg svg {
+    width: 500%;
+    height: 500%;
+    position: absolute;
+    top: -200%;
+    left: -200%;
+    animation: moveDiagonal 30s linear infinite;
+  }
+
+  @keyframes moveDiagonal {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(562.5px, 1218px);
+    }
+  }
+
+  /* Mobile optimization */
+  @media (max-width: 768px) {
+    .bg svg {
+      width: 400%;
+      height: 400%;
+      top: -150%;
+      left: -150%;
+    }
+  }
+
+  /* Hamburger Menu */
+  .hamburger {
+    position: fixed;
+    top: 1.5rem;
+    left: 1.5rem;
+    z-index: 1000;
+    width: 50px;
+    height: 50px;
+    background: rgba(26, 35, 50, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+  }
+
+  .hamburger:hover {
+    background: rgba(26, 35, 50, 0.8);
+  }
+
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2.5px;
+    background: #ffffff;
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hamburger.active span:nth-child(1) {
+    transform: translateY(8.5px) rotate(45deg);
+  }
+
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  .hamburger.active span:nth-child(3) {
+    transform: translateY(-8.5px) rotate(-45deg);
+  }
+
+  /* Navigation Menu */
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    max-width: 400px;
+    height: 100vh;
+    background: rgba(20, 28, 40, 0.98);
+    backdrop-filter: blur(20px);
+    z-index: 999;
+    padding: 8rem 3rem 3rem;
+    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .nav-menu.active {
+    left: 0;
+  }
+
+  .nav-menu ul {
+    list-style: none;
+  }
+
+  .nav-menu li {
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .nav-menu.active li {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .nav-menu.active li:nth-child(1) { transition-delay: 0.1s; }
+  .nav-menu.active li:nth-child(2) { transition-delay: 0.15s; }
+  .nav-menu.active li:nth-child(3) { transition-delay: 0.2s; }
+  .nav-menu.active li:nth-child(4) { transition-delay: 0.25s; }
+  .nav-menu.active li:nth-child(5) { transition-delay: 0.3s; }
+
+  .nav-menu a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 2rem;
+    font-weight: 500;
+    display: block;
+    padding: 1rem 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .nav-menu a:hover {
+    color: #ffffff;
+    padding-left: 1rem;
+  }
+
+  /* Overlay */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 998;
+  }
+
+  .overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* First Container - Single Content Box */
+  .container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  /* Second Container - Multiple Content Boxes */
+  .container-second {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 3rem;
+    padding: 4rem 2rem;
+  }
+
+  /* First Content Box */
+  .content-box {
+    background: rgba(26, 35, 50, 0.4);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 4rem 3rem;
+    max-width: 1500px;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: 0.2s;
+  }
+
+  /* Second Container Content Boxes */
+  .content-box2 {
+    background: rgba(26, 35, 50, 0.4);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 3rem 2.5rem;
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .content-box2:nth-child(1) {
+    animation-delay: 0.3s;
+  }
+
+  .content-box2:nth-child(2) {
+    animation-delay: 0.5s;
+  }
+
+  .content-box2:nth-child(3) {
+    animation-delay: 0.7s;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .content-box h1, .content-box2 h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+  }
+
+  .content-box p, .content-box2 p {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.8;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Decorative Elements */
+  .decorative-line {
+    width: 60px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    margin: 0 auto 2rem;
+    border-radius: 2px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hamburger {
+      top: 1.25rem;
+      left: 1.25rem;
+      width: 45px;
+      height: 45px;
+    }
+
+    .nav-menu {
+      padding: 6rem 2rem 2rem;
+    }
+
+    .nav-menu a {
+      font-size: 1.75rem;
+    }
+
+    .content-box, .content-box2 {
+      padding: 3rem 2rem;
+    }
+
+    .container-second {
+      gap: 2rem;
+      padding: 3rem 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hamburger {
+      width: 42px;
+      height: 42px;
+    }
+
+    .content-box, .content-box2 {
+      padding: 2.5rem 1.5rem;
+    }
+
+    .nav-menu a {
+      font-size: 1.5rem;
+    }
+
+    .container-second {
+      gap: 1.5rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Moving SVG Background -->
+<div class="bg">
+  <!-- Your SVG here -->
+  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%">
+    <defs></defs>
+  </svg>
+</div>
+
+<!-- Hamburger Menu Button -->
+<div class="hamburger" id="hamburger">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<!-- Navigation Menu -->
+<nav class="nav-menu" id="navMenu">
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay"></div>
+
+<!-- First Container - Single Content Box -->
+<div class="container">
+  <div class="content-box">
+    <h1>Welcome to My Portfolio</h1>
+    <div class="decorative-line"></div>
+    <p>This is the first content box in its own container.</p>
+  </div>
+</div>
+
+<!-- Second Container - Multiple Content Boxes -->
+<div class="container-second">
+  <div class="content-box2">
+    <h1>Content Box 1</h1>
+    <div class="decorative-line"></div>
+    <p>This is the first content box in the second container.</p>
+  </div>
+
+  <div class="content-box2">
+    <h1>Content Box 2</h1>
+    <div class="decorative-line"></div>
+    <p>This is the second content box in the second container.</p>
+  </div>
+
+  <div class="content-box2">
+    <h1>Content Box 3</h1>
+    <div class="decorative-line"></div>
+    <p>This is the third content box in the second container.</p>
+  </div>
+</div>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navMenu = document.getElementById('navMenu');
+  const overlay = document.getElementById('overlay');
+  const navLinks = document.querySelectorAll('.nav-menu a');
+
+  // Toggle menu
+  function toggleMenu() {
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('active');
+    overlay.classList.toggle('active');
+    document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+  }
+
+  hamburger.addEventListener('click', toggleMenu);
+  overlay.addEventListener('click', toggleMenu);
+
+  // Close menu when clicking nav links
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (navMenu.classList.contains('active')) {
+        toggleMenu();
+      }
+    });
+  });
+
+  // Escape key to close menu
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+      toggleMenu();
+    }
+  });
+</script>
+
+</body>
+</html>
