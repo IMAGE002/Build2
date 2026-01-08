@@ -270,7 +270,7 @@
     width: 100%;
   }
 
-  /* Top Box - Full Width with Notifications */
+  /* Top Box - Notifications Only */
   .content-box-top {
     grid-column: 1 / -1;
     background: rgba(26, 35, 50, 0.4);
@@ -278,12 +278,11 @@
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 12px;
     padding: 1.25rem 2rem;
-    text-align: center;
     opacity: 0;
     transform: translateY(30px);
     animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     animation-delay: 0.2s;
-    height: 110px;
+    min-height: 110px;
     display: flex;
     align-items: center;
     overflow-x: auto;
@@ -399,16 +398,75 @@
 
   /* Left Column Boxes */
   .content-box-left-1 {
-    background: rgba(26, 35, 50, 0.4);
+    background: linear-gradient(135deg, rgba(157, 78, 221, 0.15) 0%, rgba(59, 130, 246, 0.15) 100%);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    padding: 2rem 5rem;
-    text-align: left;
+    border: 1px solid rgba(157, 78, 221, 0.3);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
     opacity: 0;
     transform: translateY(30px);
     animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     animation-delay: 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .content-box-left-1::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(157, 78, 221, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* Daily Gift Content */
+  .daily-gift-content {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .daily-gift-icon {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+  }
+
+  .daily-gift-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .daily-gift-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+  }
+
+  .daily-gift-title .star {
+    color: #e879f9;
+    font-size: 1.75rem;
+  }
+
+  .daily-gift-title .loot-text {
+    background: linear-gradient(135deg, #e879f9 0%, #a78bfa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .daily-gift-subtitle {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+    letter-spacing: -0.01em;
   }
 
   .content-box-left-2 {
@@ -473,7 +531,7 @@
     }
   }
 
-  .content-box-top h1, .content-box-left-1 h1, .content-box-left-2 h1, 
+  .content-box-left-1 h1, .content-box-left-2 h1, 
   .content-box-right h1, .content-box-bottom-1 h1, .content-box-bottom-2 h1 {
     font-size: clamp(1.5rem, 4vw, 2.5rem);
     font-weight: 600;
@@ -482,7 +540,7 @@
     color: #ffffff;
   }
 
-  .content-box-top p, .content-box-left-1 p, .content-box-left-2 p, 
+  .content-box-left-1 p, .content-box-left-2 p, 
   .content-box-right p, .content-box-bottom-1 p, .content-box-bottom-2 p {
     font-size: clamp(0.9rem, 1.8vw, 1.1rem);
     color: rgba(255, 255, 255, 0.7);
@@ -533,6 +591,20 @@
       padding: 2rem 1.5rem;
     }
 
+    .content-box-top {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .daily-gift-content {
+      width: 100%;
+    }
+
+    .notification-container {
+      width: 100%;
+    }
+
     .container {
       padding: 1.5rem;
       padding-top: 5rem;
@@ -553,6 +625,15 @@
     .notification-cube svg {
       width: 30px;
       height: 30px;
+    }
+
+    .daily-gift-icon {
+      width: 60px;
+      height: 60px;
+    }
+
+    .daily-gift-title {
+      font-size: 1.25rem;
     }
   }
 
@@ -2298,7 +2379,6 @@
 	c0.35,0.16,0.7,0.32,1.06,0.48c0.07,0.03,0.14,0.06,0.21,0.09C1103.84,904.64,1104.97,906.21,1104.49,910.06z M1110.46,900.36
 	c-0.42,0.89-1.97,1.82-3.16,1.25c-1.06-0.51-2.01-0.94-2.88-1.34c-0.24-0.15-0.49-0.28-0.73-0.4c-0.36-0.17-0.72-0.31-1.07-0.43
 	c-3.17-1.49-3.46-1.9-3.36-2.83l0.25-2.39c0.29,0.1,0.69,0.28,1.26,0.55l8.78,4.21C1110.82,899.61,1110.6,900.08,1110.46,900.36z"/>
-        </style>
       </pattern>
     </defs>
     <rect width="100%" height="100%" fill="url(#tgPattern)" />
@@ -2341,15 +2421,26 @@
 <!-- Main Container with Grid Layout -->
 <div class="container">
   <div class="grid-layout">
-    <!-- Top Box - Full Width - Now contains notifications -->
+    <!-- Top Box - Notifications Only -->
     <div class="content-box-top" id="notificationContainer">
       <!-- Notification cubes will be added here -->
     </div>
 
-    <!-- Left Column - First Box -->
+    <!-- Left Column - First Box - Daily Bag of Loot -->
     <div class="content-box-left-1">
-      <h1>About</h1>
-      <p>Left column first box content.</p>
+      <div class="daily-gift-content">
+        <div class="daily-gift-icon">
+          <img src="assets/DailyGift.svg" alt="Daily Gift" style="width: 100%; height: 100%; object-fit: contain;">
+        </div>
+        <div class="daily-gift-text">
+          <div class="daily-gift-title">
+            <span class="star">★</span>
+            <span>Daily </span>
+            <span class="loot-text">Bag of Loot!</span>
+          </div>
+          <div class="daily-gift-subtitle">Daily gift from us!</div>
+        </div>
+      </div>
     </div>
 
     <!-- Right Column - Tall Box (spans 2 rows) -->
@@ -2484,11 +2575,9 @@
     const id = Date.now() + Math.random();
     cube.dataset.id = id;
 
-    // Add error icon
     const icon = createErrorIcon();
     cube.appendChild(icon);
 
-    // Add close button
     const closeBtn = document.createElement('div');
     closeBtn.className = 'close-btn';
     closeBtn.innerHTML = '×';
@@ -2498,7 +2587,6 @@
     };
     cube.appendChild(closeBtn);
 
-    // Create time bar
     const timeBar = document.createElement('div');
     timeBar.className = 'time-bar';
     
@@ -2508,7 +2596,6 @@
     timeBar.appendChild(timeBarFill);
     cube.appendChild(timeBar);
 
-    // Click handler for the cube
     cube.onclick = () => {
       alert('Notification clicked! ID: ' + id);
     };
@@ -2517,7 +2604,6 @@
     notifications.push(id);
     updateNotificationCount();
 
-    // Auto remove after 20 seconds
     setTimeout(() => {
       removeNotification(id);
     }, 20000);
