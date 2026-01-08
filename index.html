@@ -791,6 +791,7 @@
   </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
 <script>
   const hamburger = document.getElementById('hamburger');
   const navMenu = document.getElementById('navMenu');
@@ -815,19 +816,16 @@
     path: 'assets/1767886625_chpic.su___GiftStickersByAutoGiftNews_011.json'
   });
 
-  // Play animation with delay loop
-  function playLottieWithDelay() {
-    lottieAnim.play();
-    lottieAnim.addEventListener('complete', function() {
-      setTimeout(() => {
-        lottieAnim.goToAndPlay(0, true);
-      }, 5000); // Wait 5 seconds before replaying
-    });
-  }
+  // Handle animation complete event
+  lottieAnim.addEventListener('complete', function() {
+    setTimeout(() => {
+      lottieAnim.goToAndPlay(0, true);
+    }, 5000); // Wait 5 seconds before replaying
+  });
 
-  // Start animation after page load
+  // Start animation after 1 second delay
   setTimeout(() => {
-    playLottieWithDelay();
+    lottieAnim.play();
   }, 1000);
 
   function toggleMenu() {
