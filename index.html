@@ -964,7 +964,7 @@
     renderer: 'svg',
     loop: false,
     autoplay: false,
-    path: 'assets/1767886625_chpic.su___GiftStickersByAutoGiftNews_011.json'
+    path: 'assets/1767886625_chpic.su___GiftStickersByAutoGiftNews_011'
   });
 
   // Handle animation complete event
@@ -985,7 +985,28 @@
     renderer: 'svg',
     loop: false,
     autoplay: false,
-    path: 'assets/1767946179_chpic.su___GiftStickersByAutoGiftNews_072.json'
+    path: 'assets/1767946179_chpic.su___GiftStickersByAutoGiftNews_072'
+  });
+
+  // Handle inventory animation complete event
+  inventoryLottieAnim.addEventListener('complete', function() {
+    setTimeout(() => {
+      inventoryLottieAnim.goToAndPlay(0, true);
+    }, 5000); // Wait 5 seconds before replaying
+  });
+
+  // Start inventory animation after 1 second delay
+  setTimeout(() => {
+    inventoryLottieAnim.play();
+  }, 1000);
+
+  // Initialize Lottie animation for Inventory Icon
+  let inventoryLottieAnim = lottie.loadAnimation({
+    container: document.getElementById('inventoryLottieAnimation'),
+    renderer: 'svg',
+    loop: false,
+    autoplay: false,
+    path: 'assets/1767946179_chpic.su___GiftStickersByAutoGiftNews_072'
   });
 
   // Handle inventory animation complete event
