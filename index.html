@@ -64,6 +64,85 @@
     }
   }
 
+  /* Currency Bar */
+  .currency-bar {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(18, 25, 36, 0.85);
+    backdrop-filter: blur(15px);
+    border: none;
+    border-radius: 50px;
+    padding: 0.65rem 0.65rem 0.65rem 1.5rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    min-width: 200px;
+  }
+
+  .currency-bar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(0, 0, 0, 0.4);
+    background: rgba(20, 28, 40, 0.9);
+  }
+
+  .currency-plus-btn {
+    width: 42px;
+    height: 42px;
+    background: rgba(139, 92, 246, 0.15);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1.5rem;
+    color: rgba(167, 139, 250, 0.9);
+    font-weight: 300;
+  }
+
+  .currency-plus-btn:hover {
+    background: rgba(139, 92, 246, 0.25);
+    border-color: rgba(139, 92, 246, 0.5);
+    transform: scale(1.05);
+  }
+
+  .currency-amount {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.02em;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    flex: 1;
+    text-align: center;
+  }
+
+  .currency-icon {
+    width: 42px;
+    height: 42px;
+    background: rgba(139, 92, 246, 0.15);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+    flex-shrink: 0;
+  }
+
+  .currency-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(139, 92, 246, 0.3));
+  }
+
   /* Hamburger Menu */
   .hamburger {
     position: fixed;
@@ -725,6 +804,24 @@
 
   /* Responsive */
   @media (max-width: 768px) {
+    .currency-bar {
+      top: 1.25rem;
+      right: 1.25rem;
+      padding: 0.5rem 1.25rem 0.5rem 0.5rem;
+      gap: 0.5rem;
+    }
+
+    .currency-icon {
+      width: 38px;
+      height: 38px;
+      padding: 7px;
+    }
+
+    .currency-amount {
+      font-size: 1.1rem;
+      min-width: 50px;
+    }
+
     .hamburger {
       top: 1.25rem;
       left: 1.25rem;
@@ -809,6 +906,22 @@
   }
 
   @media (max-width: 480px) {
+    .currency-bar {
+      padding: 0.45rem 1rem 0.45rem 0.45rem;
+      gap: 0.4rem;
+    }
+
+    .currency-icon {
+      width: 34px;
+      height: 34px;
+      padding: 6px;
+    }
+
+    .currency-amount {
+      font-size: 1rem;
+      min-width: 45px;
+    }
+
     .hamburger {
       width: 42px;
       height: 42px;
@@ -840,6 +953,14 @@
     </defs>
     <rect width="100%" height="100%" fill="url(#tgPattern)" />
   </svg>
+</div>
+
+<!-- Currency Bar -->
+<div class="currency-bar">
+  <div class="currency-icon">
+    <img src="assets/Coin.svg" alt="Currency">
+  </div>
+  <div class="currency-amount" id="currencyAmount">0</div>
 </div>
 
 <!-- Hamburger Menu Button -->
@@ -954,9 +1075,53 @@
   const clearAllBtn = document.getElementById('clearAllBtn');
   const notificationContainer = document.getElementById('notificationContainer');
   const notificationCount = document.getElementById('notificationCount');
+  const currencyAmount = document.getElementById('currencyAmount');
 
   let notifications = [];
   const MAX_NOTIFICATIONS = 15;
+  let virtualCurrency = 1250; // Starting currency amount
+
+  // Initialize currency display
+  function updateCurrencyDisplay() {
+    const formattedAmount = virtualCurrency.toLocaleString();
+    currencyAmount.textContent = formattedAmount;
+  }
+
+  // Animate currency change
+  function animateCurrencyChange(oldValue, newValue, duration = 1000) {
+    const start = performance.now();
+    const difference = newValue - oldValue;
+
+    function update(currentTime) {
+      const elapsed = currentTime - start;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Easing function for smooth animation
+      const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+      const current = Math.floor(oldValue + (difference * easeOutCubic));
+      
+      currencyAmount.textContent = current.toLocaleString();
+      
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        virtualCurrency = newValue;
+        currencyAmount.textContent = newValue.toLocaleString();
+      }
+    }
+    
+    requestAnimationFrame(update);
+  }
+
+  // Add currency
+  function addCurrency(amount) {
+    const oldValue = virtualCurrency;
+    const newValue = virtualCurrency + amount;
+    animateCurrencyChange(oldValue, newValue);
+  }
+
+  // Initialize display
+  updateCurrencyDisplay();
 
   // Initialize Lottie animation for Daily Gift
   let lottieAnim = lottie.loadAnimation({
@@ -1157,6 +1322,9 @@
 
   imitateWinBtn.addEventListener('click', () => {
     addNotification();
+    // Add random currency between 50-200 when winning
+    const earnedAmount = Math.floor(Math.random() * 151) + 50;
+    addCurrency(earnedAmount);
   });
 
   clearAllBtn.addEventListener('click', () => {
