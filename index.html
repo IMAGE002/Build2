@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -567,17 +566,143 @@
     letter-spacing: -0.01em;
   }
 
+  /* Skills Box Styling */
   .content-box-left-2 {
-    background: rgba(26, 35, 50, 0.4);
+    background: linear-gradient(135deg, rgba(59, 182, 255, 0.15) 0%, rgba(42, 143, 160, 0.15) 100%);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    padding: 2rem 2.5rem;
-    text-align: center;
+    border: 1px solid rgba(59, 182, 255, 0.3);
+    border-radius: 16px;
+    padding: 1.5rem 2.5rem;
+    text-align: left;
     opacity: 0;
     transform: translateY(30px);
     animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     animation-delay: 0.6s;
+    max-width: 900px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 200px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .content-box-left-2::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(59, 182, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    border-radius: 16px;
+  }
+
+  .content-box-left-2 svg {
+    width: 140%;
+    height: auto;
+    position: absolute;
+    left: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  /* Channel content styling */
+  .channel-content {
+    position: relative;
+    z-index: 2;
+    max-width: 500px;
+  }
+
+  .channel-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    font-style: italic;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+    color: #ffffff;
+  }
+
+  .channel-title .free-text {
+    color: #3BB6FF;
+  }
+
+  .channel-subtitle {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 2rem;
+    font-weight: 400;
+  }
+
+  .join-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: linear-gradient(135deg, #3BB6FF 0%, #2A8FA0 100%);
+    border: none;
+    border-radius: 50px;
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(59, 182, 255, 0.3);
+    text-decoration: none;
+  }
+
+  .join-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(59, 182, 255, 0.5);
+    background: linear-gradient(135deg, #4AC5FF 0%, #3BA0B0 100%);
+  }
+
+  .join-button:active {
+    transform: translateY(0);
+  }
+
+  .join-button img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+  }
+
+  /* Big icon positioned below the path */
+  .big-icon {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    right: -50px;
+    bottom: -180px;
+    z-index: 1;
+    opacity: 0.8;
+    pointer-events: none;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-20px) rotate(5deg);
+    }
+  }
+  
+  /* Animated path */
+  .animated-path {
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 0.45;
+      stroke-width: 5;
+    }
+    50% {
+      opacity: 0.7;
+      stroke-width: 6;
+    }
   }
 
   /* Right Column Box - Spans 2 rows */
@@ -769,8 +894,8 @@
     }
   }
 
-  .content-box-left-1 h1, .content-box-left-2 h1, 
-  .content-box-right h1, .content-box-bottom-1 h1, .content-box-bottom-2 h1 {
+  .content-box-left-1 h1, .content-box-right h1, 
+  .content-box-bottom-1 h1, .content-box-bottom-2 h1 {
     font-size: clamp(1.5rem, 4vw, 2.5rem);
     font-weight: 600;
     line-height: 1.3;
@@ -778,8 +903,8 @@
     color: #ffffff;
   }
 
-  .content-box-left-1 p, .content-box-left-2 p, 
-  .content-box-right p, .content-box-bottom-1 p, .content-box-bottom-2 p {
+  .content-box-left-1 p, .content-box-right p, 
+  .content-box-bottom-1 p, .content-box-bottom-2 p {
     font-size: clamp(0.9rem, 1.8vw, 1.1rem);
     color: rgba(255, 255, 255, 0.7);
     line-height: 1.8;
@@ -808,7 +933,6 @@
     .currency-icon {
       width: 38px;
       height: 38px;
-      padding: 7px;
     }
 
     .currency-amount {
@@ -897,6 +1021,41 @@
       height: 140px;
       right: -10px;
     }
+
+    .content-box-left-2 {
+      padding: 2rem 1.5rem;
+      min-height: 250px;
+      text-align: center;
+    }
+
+    .content-box-left-2 svg {
+      width: 180%;
+      left: -40%;
+    }
+
+    .channel-content {
+      max-width: 100%;
+    }
+
+    .channel-title {
+      font-size: 1.5rem;
+    }
+
+    .channel-subtitle {
+      font-size: 1rem;
+    }
+
+    .join-button {
+      padding: 0.875rem 1.75rem;
+      font-size: 1rem;
+    }
+
+    .big-icon {
+      width: 200px;
+      height: 200px;
+      right: -30px;
+      bottom: -130px;
+    }
   }
 
   @media (max-width: 480px) {
@@ -908,7 +1067,6 @@
     .currency-icon {
       width: 34px;
       height: 34px;
-      padding: 6px;
     }
 
     .currency-amount {
@@ -1034,11 +1192,36 @@
       </div>
     </div>
 
-    <!-- Left Column - Second Box -->
+    <!-- Left Column - Second Box - UPDATED WITH SKILLS CHANNEL -->
     <div class="content-box-left-2">
-      <h1>Skills</h1>
-      <div class="decorative-line"></div>
-      <p>Left column second box content.</p>
+      <svg viewBox="0 0 1200 400" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <path class="animated-path" opacity="0.35" 
+          d="M682.95 15.5C722.95 55.5 722.95 135.5 642.95 155.5C572.95 175.5 542.95 115.5 582.95 85.5C632.95 45.5 682.95 85.5 632.95 135.5C592.95 175.5 522.95 195.5 507.95 260.5C492.95 325.5 477.95 390.5 462.95 455.5" 
+          stroke="#2A8FA0" stroke-width="5" stroke-linecap="round" stroke-dasharray="10 18">
+          <animate
+            attributeName="stroke-dashoffset"
+            from="-140"
+            to="0"
+            dur="4s"
+            repeatCount="indefinite" />
+          <animate
+            attributeName="opacity"
+            values="0.35;0.65;0.35"
+            dur="3s"
+            repeatCount="indefinite" />
+        </path>
+      </svg>
+
+      <div class="channel-content">
+        <h1 class="channel-title">Channel with <span class="free-text">FREE</span> Stuff!!</h1>
+        <p class="channel-subtitle">Join our channel to not miss anything!</p>
+        <a href="#" class="join-button">
+          <img src="assets/SmallPLPIcon.svg" alt="Icon">
+          Join Channel
+        </a>
+      </div>
+
+      <img src="assets/BigPLPIcon.svg" alt="Big Icon" class="big-icon">
     </div>
 
     <!-- Bottom Row - First Box -->
@@ -1073,7 +1256,7 @@
 
   let notifications = [];
   const MAX_NOTIFICATIONS = 15;
-  let virtualCurrency = 1250; // Starting currency amount
+  let virtualCurrency = 0; // Starting currency amount
 
   // Initialize currency display
   function updateCurrencyDisplay() {
