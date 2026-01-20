@@ -481,6 +481,18 @@
     animation-delay: 0.4s;
     position: relative;
     overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .content-box-left-1:hover {
+    transform: translateY(-4px);
+    border-color: rgba(157, 78, 221, 0.5);
+    box-shadow: 0 8px 30px rgba(157, 78, 221, 0.3);
+  }
+
+  .content-box-left-1:active {
+    transform: translateY(-2px);
   }
 
   .content-box-left-1::before {
@@ -705,14 +717,14 @@
     }
   }
 
-  /* Right Column Box - Spans 2 rows */
+  /* Right Column Box - Spans 2 rows - REDESIGNED */
   .content-box-right {
     grid-row: 2 / 4;
     background: linear-gradient(180deg, rgba(245, 194, 107, 0.15) 0%, rgba(232, 168, 77, 0.08) 100%);
     backdrop-filter: blur(10px);
     border: 2px solid #F5C26B;
     border-radius: 12px;
-    padding: 2.5rem 3rem;
+    padding: 2rem 2.5rem;
     text-align: center;
     opacity: 0;
     transform: translateY(30px);
@@ -720,6 +732,20 @@
     animation-delay: 0.5s;
     position: relative;
     overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .content-box-right:hover {
+    transform: translateY(-4px);
+    border-color: #F5C26B;
+    box-shadow: 0 8px 30px rgba(245, 194, 107, 0.4);
+  }
+
+  .content-box-right:active {
+    transform: translateY(-2px);
   }
 
   /* Inventory Header */
@@ -728,19 +754,19 @@
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.5rem;
     position: relative;
     z-index: 2;
   }
 
   .inventory-icon {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     flex-shrink: 0;
   }
 
   .inventory-title {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     font-weight: 600;
     color: #ffffff;
     letter-spacing: -0.02em;
@@ -748,41 +774,100 @@
   }
 
   .inventory-subtitle {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.5);
     font-weight: 500;
-    margin: 0 0 2rem 0;
+    margin: 0 0 1.5rem 0;
     position: relative;
     z-index: 2;
   }
 
-  /* Box Container */
-  .box-container {
+  /* Item Grid */
+  .inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
     position: relative;
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
+    z-index: 2;
+  }
+
+  .inventory-item {
     aspect-ratio: 1;
+    background: rgba(245, 194, 107, 0.1);
+    border: 2px solid rgba(245, 194, 107, 0.3);
+    border-radius: 12px;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
-    padding-bottom: 2rem;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .inventory-item:hover {
+    background: rgba(245, 194, 107, 0.2);
+    border-color: rgba(245, 194, 107, 0.5);
+    transform: scale(1.05);
+  }
+
+  .inventory-item.empty {
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px dashed rgba(255, 255, 255, 0.1);
+  }
+
+  .inventory-item.empty:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .item-icon {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 8px rgba(245, 194, 107, 0.4));
+  }
+
+  .item-count {
+    position: absolute;
+    bottom: 4px;
+    right: 6px;
+    background: rgba(245, 194, 107, 0.9);
+    color: #0f1a24;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 8px;
+    min-width: 20px;
+    text-align: center;
+  }
+
+  /* View All Button */
+  .view-all-btn {
+    background: linear-gradient(135deg, rgba(245, 194, 107, 0.2) 0%, rgba(232, 168, 77, 0.2) 100%);
+    border: 2px solid rgba(245, 194, 107, 0.5);
+    color: #F5C26B;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: auto;
+    position: relative;
     z-index: 2;
   }
 
-  .box-container > img {
-    width: 80%;
-    height: auto;
-    object-fit: contain;
-    position: relative;
-    z-index: 2;
+  .view-all-btn:hover {
+    background: linear-gradient(135deg, rgba(245, 194, 107, 0.3) 0%, rgba(232, 168, 77, 0.3) 100%);
+    border-color: rgba(245, 194, 107, 0.7);
+    transform: translateY(-2px);
   }
 
   /* Floating Stars */
   .floating-star {
     position: absolute;
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     opacity: 0;
     pointer-events: none;
     animation: floatStar 4s ease-in-out infinite;
@@ -813,51 +898,33 @@
   }
 
   .floating-star:nth-child(1) {
-    left: 15%;
-    bottom: 10%;
+    left: 10%;
+    bottom: 15%;
     animation-delay: 0s;
-    width: 16px;
-    height: 16px;
   }
 
   .floating-star:nth-child(2) {
-    left: 75%;
-    bottom: 15%;
+    left: 80%;
+    bottom: 20%;
     animation-delay: 1.5s;
-    width: 24px;
-    height: 24px;
   }
 
   .floating-star:nth-child(3) {
     left: 40%;
-    bottom: 5%;
+    bottom: 10%;
     animation-delay: 3s;
-    width: 20px;
-    height: 20px;
   }
 
   .floating-star:nth-child(4) {
-    left: 85%;
-    bottom: 25%;
+    left: 90%;
+    bottom: 30%;
     animation-delay: 0.8s;
-    width: 18px;
-    height: 18px;
   }
 
   .floating-star:nth-child(5) {
-    left: 25%;
-    bottom: 20%;
+    left: 20%;
+    bottom: 25%;
     animation-delay: 2.2s;
-    width: 22px;
-    height: 22px;
-  }
-
-  .floating-star:nth-child(6) {
-    left: 60%;
-    bottom: 8%;
-    animation-delay: 1.2s;
-    width: 19px;
-    height: 19px;
   }
 
   /* Bottom Row Boxes */
@@ -872,6 +939,18 @@
     transform: translateY(30px);
     animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     animation-delay: 0.8s;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .content-box-bottom-1:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 30px rgba(255, 255, 255, 0.1);
+  }
+
+  .content-box-bottom-1:active {
+    transform: translateY(-2px);
   }
 
   .content-box-bottom-2 {
@@ -885,6 +964,18 @@
     transform: translateY(30px);
     animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     animation-delay: 1s;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .content-box-bottom-2:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 30px rgba(255, 255, 255, 0.1);
+  }
+
+  .content-box-bottom-2:active {
+    transform: translateY(-2px);
   }
 
   @keyframes fadeInUp {
@@ -1056,6 +1147,10 @@
       right: -30px;
       bottom: -130px;
     }
+
+    .inventory-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   @media (max-width: 480px) {
@@ -1174,22 +1269,41 @@
       </div>
     </div>
 
-    <!-- Right Column - Tall Box (spans 2 rows) -->
+    <!-- Right Column - Tall Box (spans 2 rows) - REDESIGNED INVENTORY -->
     <div class="content-box-right">
       <div class="inventory-header">
         <div class="inventory-icon" id="inventoryLottieAnimation"></div>
         <h1 class="inventory-title">Inventory</h1>
       </div>
-      <p class="inventory-subtitle">See what you have</p>
-      <div class="box-container">
-        <img src="assets/Box.svg" alt="Treasure Box">
-        <div class="floating-star"><img src="assets/Star.png" alt="star"></div>
-        <div class="floating-star"><img src="assets/Star.png" alt="star"></div>
-        <div class="floating-star"><img src="assets/Star.png" alt="star"></div>
-        <div class="floating-star"><img src="assets/Star.png" alt="star"></div>
-        <div class="floating-star"><img src="assets/Star.png" alt="star"></div>
-        <div class="floating-star"><img src="assets/Star.png" alt="star"></div>
+      <p class="inventory-subtitle">Your collected items</p>
+      
+      <!-- Item Grid -->
+      <div class="inventory-grid">
+        <div class="inventory-item">
+          <img src="assets/Box.svg" alt="Item" class="item-icon">
+          <span class="item-count">3</span>
+        </div>
+        <div class="inventory-item">
+          <img src="assets/Coin.svg" alt="Item" class="item-icon">
+          <span class="item-count">12</span>
+        </div>
+        <div class="inventory-item">
+          <img src="assets/Star.png" alt="Item" class="item-icon">
+          <span class="item-count">7</span>
+        </div>
+        <div class="inventory-item empty"></div>
+        <div class="inventory-item empty"></div>
+        <div class="inventory-item empty"></div>
       </div>
+
+      <button class="view-all-btn">View All Items</button>
+
+      <!-- Floating Stars -->
+      <div class="floating-star"><img src="assets/Star.png" alt="star"></div>
+      <div class="floating-star"><img src="assets/Star.png" alt="star"></div>
+      <div class="floating-star"><img src="assets/Star.png" alt="star"></div>
+      <div class="floating-star"><img src="assets/Star.png" alt="star"></div>
+      <div class="floating-star"><img src="assets/Star.png" alt="star"></div>
     </div>
 
     <!-- Left Column - Second Box - UPDATED WITH SKILLS CHANNEL -->
@@ -1256,7 +1370,7 @@
 
   let notifications = [];
   const MAX_NOTIFICATIONS = 15;
-  let virtualCurrency = 0; // Starting currency amount
+  let virtualCurrency = 0;
 
   // Initialize currency display
   function updateCurrencyDisplay() {
@@ -1273,7 +1387,6 @@
       const elapsed = currentTime - start;
       const progress = Math.min(elapsed / duration, 1);
       
-      // Easing function for smooth animation
       const easeOutCubic = 1 - Math.pow(1 - progress, 3);
       const current = Math.floor(oldValue + (difference * easeOutCubic));
       
@@ -1309,14 +1422,12 @@
     path: 'assets/DailyGift.json'
   });
 
-  // Handle animation complete event
   lottieAnim.addEventListener('complete', function() {
     setTimeout(() => {
       lottieAnim.goToAndPlay(0, true);
-    }, 5000); // Wait 5 seconds before replaying
+    }, 5000);
   });
 
-  // Start animation after 1 second delay
   setTimeout(() => {
     lottieAnim.play();
   }, 1000);
@@ -1330,14 +1441,12 @@
     path: 'assets/CrystalForInv.json'
   });
 
-  // Handle inventory animation complete event
   inventoryLottieAnim.addEventListener('complete', function() {
     setTimeout(() => {
       inventoryLottieAnim.goToAndPlay(0, true);
-    }, 5000); // Wait 5 seconds before replaying
+    }, 5000);
   });
 
-  // Start inventory animation after 1 second delay
   setTimeout(() => {
     inventoryLottieAnim.play();
   }, 1000);
@@ -1499,13 +1608,29 @@
 
   imitateWinBtn.addEventListener('click', () => {
     addNotification();
-    // Add random currency between 50-200 when winning
     const earnedAmount = Math.floor(Math.random() * 151) + 50;
     addCurrency(earnedAmount);
   });
 
   clearAllBtn.addEventListener('click', () => {
     clearAllNotifications();
+  });
+
+  // Add click handlers for boxes
+  document.querySelector('.content-box-left-1').addEventListener('click', () => {
+    alert('Daily Bag of Loot clicked!');
+  });
+
+  document.querySelector('.content-box-right').addEventListener('click', () => {
+    alert('Inventory clicked!');
+  });
+
+  document.querySelector('.content-box-bottom-1').addEventListener('click', () => {
+    alert('Projects clicked!');
+  });
+
+  document.querySelector('.content-box-bottom-2').addEventListener('click', () => {
+    alert('Contact clicked!');
   });
 </script>
 
