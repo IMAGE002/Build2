@@ -24,14 +24,14 @@
     stroke-width="10"
     opacity="0.9"/>
 
-  <!-- Circuit / dashed inner line -->
+  <!-- Circuit / dashed inner line (perfect as before) -->
   <path d="
     M 200 85
     L 295 140
     L 295 260
     L 200 315
-    L 115 260
-    L 115 140 Z"
+    L 105 260
+    L 105 140 Z"
     fill="none"
     stroke="#2E335F"
     stroke-width="2"
