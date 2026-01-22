@@ -183,31 +183,113 @@
     transform: translateY(-8.5px) rotate(-45deg);
   }
 
-  /* Navigation Menu */
+  /* Navigation Menu - Telegram Style */
   .nav-menu {
     position: fixed;
     top: 0;
     left: -100%;
     width: 100%;
-    max-width: 400px;
+    max-width: 380px;
     height: 100vh;
-    background: rgba(20, 28, 40, 0.98);
+    background: rgba(22, 30, 42, 0.98);
     backdrop-filter: blur(20px);
     z-index: 999;
-    padding: 8rem 3rem 3rem;
+    padding: 0;
     transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
   }
 
   .nav-menu.active {
     left: 0;
   }
 
+  /* Close Button */
+  .nav-close {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.75rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: translateX(-20px);
+    z-index: 10;
+  }
+
+  .nav-menu.active .nav-close {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: 0.1s;
+  }
+
+  .nav-close:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+  }
+
+  /* Account Section */
+  .nav-account {
+    padding: 1.5rem 2rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: 3.5rem;
+  }
+
+  .nav-menu.active .nav-account {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: 0.15s;
+  }
+
+  .account-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    flex-shrink: 0;
+  }
+
+  .account-info {
+    flex: 1;
+  }
+
+  .account-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 0.25rem;
+  }
+
+  .account-username {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 400;
+  }
+
+  /* Navigation List */
   .nav-menu ul {
     list-style: none;
+    padding: 0.5rem 0;
+    flex: 1;
   }
 
   .nav-menu li {
-    margin-bottom: 0.5rem;
     opacity: 0;
     transform: translateX(-20px);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -218,26 +300,52 @@
     transform: translateX(0);
   }
 
-  .nav-menu.active li:nth-child(1) { transition-delay: 0.1s; }
-  .nav-menu.active li:nth-child(2) { transition-delay: 0.15s; }
-  .nav-menu.active li:nth-child(3) { transition-delay: 0.2s; }
-  .nav-menu.active li:nth-child(4) { transition-delay: 0.25s; }
-  .nav-menu.active li:nth-child(5) { transition-delay: 0.3s; }
-  .nav-menu.active li:nth-child(6) { transition-delay: 0.35s; }
+  .nav-menu.active li:nth-child(1) { transition-delay: 0.2s; }
+  .nav-menu.active li:nth-child(2) { transition-delay: 0.25s; }
+  .nav-menu.active li:nth-child(3) { transition-delay: 0.3s; }
+  .nav-menu.active li:nth-child(4) { transition-delay: 0.35s; }
 
   .nav-menu a {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.85);
     text-decoration: none;
-    font-size: 2rem;
+    font-size: 1.05rem;
     font-weight: 500;
-    display: block;
-    padding: 1rem 0;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1rem 2rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
   }
 
   .nav-menu a:hover {
+    background: rgba(255, 255, 255, 0.05);
     color: #ffffff;
-    padding-left: 1rem;
+  }
+
+  .nav-menu a:active {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .nav-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.85;
+  }
+
+  .nav-menu a:hover .nav-icon img {
+    opacity: 1;
   }
 
   /* Overlay */
@@ -1039,11 +1147,31 @@
     }
 
     .nav-menu {
-      padding: 6rem 2rem 2rem;
+      max-width: 85%;
+    }
+
+    .nav-account {
+      padding: 1.25rem 1.5rem 1.5rem;
+    }
+
+    .account-avatar {
+      width: 50px;
+      height: 50px;
+    }
+
+    .account-name {
+      font-size: 1rem;
     }
 
     .nav-menu a {
-      font-size: 1.75rem;
+      font-size: 1rem;
+      padding: 0.875rem 1.5rem;
+      gap: 1rem;
+    }
+
+    .nav-icon {
+      width: 26px;
+      height: 26px;
     }
 
     .grid-layout {
@@ -1174,6 +1302,37 @@
       height: 42px;
     }
 
+    .nav-menu {
+      max-width: 90%;
+    }
+
+    .nav-account {
+      padding: 1rem 1.25rem 1.25rem;
+    }
+
+    .account-avatar {
+      width: 46px;
+      height: 46px;
+    }
+
+    .account-name {
+      font-size: 0.95rem;
+    }
+
+    .account-username {
+      font-size: 0.85rem;
+    }
+
+    .nav-menu a {
+      font-size: 0.95rem;
+      padding: 0.8rem 1.25rem;
+    }
+
+    .nav-icon {
+      width: 24px;
+      height: 24px;
+    }
+
     .content-box-top,
     .content-box-left-1,
     .content-box-left-2,
@@ -1181,10 +1340,6 @@
     .content-box-bottom-1,
     .content-box-bottom-2 {
       padding: 2rem 1.5rem;
-    }
-
-    .nav-menu a {
-      font-size: 1.5rem;
     }
   }
 </style>
@@ -1219,13 +1374,49 @@
 
 <!-- Navigation Menu -->
 <nav class="nav-menu" id="navMenu">
+  <button class="nav-close" id="navClose">×</button>
+  
+  <div class="nav-account">
+    <div class="account-avatar"></div>
+    <div class="account-info">
+      <div class="account-name">Account name</div>
+      <div class="account-username">username</div>
+    </div>
+  </div>
+  
   <ul>
-    <li><a href="#home">Home</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#work">Work</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#" id="debugMenuLink">Debug</a></li>
+    <li>
+      <a href="#home">
+        <div class="nav-icon">
+          <img src="assets/HomeIcon.svg" alt="Home">
+        </div>
+        Home
+      </a>
+    </li>
+    <li>
+      <a href="#leaderboard">
+        <div class="nav-icon">
+          <img src="assets/LBIcon.svg" alt="Leaderboard">
+        </div>
+        Leaderboard
+      </a>
+    </li>
+    <li>
+      <a href="#deposit">
+        <div class="nav-icon">
+          <img src="assets/WalletIcon.svg" alt="Deposit">
+        </div>
+        Deposit
+      </a>
+    </li>
+    <li>
+      <a href="#settings">
+        <div class="nav-icon">
+          <img src="assets/GearIcon.svg" alt="Settings">
+        </div>
+        Settings
+      </a>
+    </li>
   </ul>
 </nav>
 
@@ -1358,9 +1549,9 @@
 <script>
   const hamburger = document.getElementById('hamburger');
   const navMenu = document.getElementById('navMenu');
+  const navClose = document.getElementById('navClose');
   const overlay = document.getElementById('overlay');
   const navLinks = document.querySelectorAll('.nav-menu a');
-  const debugMenuLink = document.getElementById('debugMenuLink');
   const debugPanel = document.getElementById('debugPanel');
   const imitateWinBtn = document.getElementById('imitateWinBtn');
   const clearAllBtn = document.getElementById('clearAllBtn');
@@ -1372,13 +1563,11 @@
   const MAX_NOTIFICATIONS = 15;
   let virtualCurrency = 0;
 
-  // Initialize currency display
   function updateCurrencyDisplay() {
     const formattedAmount = virtualCurrency.toLocaleString();
     currencyAmount.textContent = formattedAmount;
   }
 
-  // Animate currency change
   function animateCurrencyChange(oldValue, newValue, duration = 1000) {
     const start = performance.now();
     const difference = newValue - oldValue;
@@ -1403,17 +1592,14 @@
     requestAnimationFrame(update);
   }
 
-  // Add currency
   function addCurrency(amount) {
     const oldValue = virtualCurrency;
     const newValue = virtualCurrency + amount;
     animateCurrencyChange(oldValue, newValue);
   }
 
-  // Initialize display
   updateCurrencyDisplay();
 
-  // Initialize Lottie animation for Daily Gift
   let lottieAnim = lottie.loadAnimation({
     container: document.getElementById('lottieAnimation'),
     renderer: 'svg',
@@ -1432,7 +1618,6 @@
     lottieAnim.play();
   }, 1000);
 
-  // Initialize Lottie animation for Inventory Icon
   let inventoryLottieAnim = lottie.loadAnimation({
     container: document.getElementById('inventoryLottieAnimation'),
     renderer: 'svg',
@@ -1459,6 +1644,8 @@
   }
 
   hamburger.addEventListener('click', toggleMenu);
+  navClose.addEventListener('click', toggleMenu);
+  
   overlay.addEventListener('click', () => {
     if (navMenu.classList.contains('active')) {
       toggleMenu();
@@ -1470,21 +1657,18 @@
 
   navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
-      if (link.id === 'debugMenuLink') {
-        e.preventDefault();
-        debugPanel.classList.toggle('active');
-        if (navMenu.classList.contains('active')) {
-          toggleMenu();
-        }
-      } else {
-        if (navMenu.classList.contains('active')) {
-          toggleMenu();
-        }
+      if (navMenu.classList.contains('active')) {
+        toggleMenu();
       }
     });
   });
 
   document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'd') {
+      e.preventDefault();
+      debugPanel.classList.toggle('active');
+    }
+    
     if (e.key === 'Escape') {
       if (navMenu.classList.contains('active')) {
         toggleMenu();
@@ -1616,7 +1800,6 @@
     clearAllNotifications();
   });
 
-  // Add click handlers for boxes
   document.querySelector('.content-box-left-1').addEventListener('click', () => {
     alert('Daily Bag of Loot clicked!');
   });
