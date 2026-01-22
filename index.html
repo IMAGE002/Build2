@@ -136,6 +136,8 @@
     filter: drop-shadow(0 2px 4px rgba(139, 92, 246, 0.3));
   }
 
+
+
   /* Hamburger Menu */
   .hamburger {
     position: fixed;
@@ -327,6 +329,29 @@
     background: rgba(255, 255, 255, 0.08);
   }
 
+  /* Active Navigation Link - NEW */
+  .nav-menu a.active {
+    background: rgba(139, 92, 246, 0.15);
+    color: #a78bfa;
+    border-left: 3px solid #a78bfa;
+  }
+
+  .nav-menu a.active::after {
+    content: '';
+    position: absolute;
+    right: 2rem;
+    width: 6px;
+    height: 6px;
+    background: #a78bfa;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+  }
+
+  .nav-menu a.active .nav-icon img {
+    opacity: 1;
+    filter: brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(220deg);
+  }
+
   .nav-icon {
     width: 28px;
     height: 28px;
@@ -342,6 +367,7 @@
     object-fit: contain;
     filter: brightness(0) invert(1);
     opacity: 0.85;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .nav-menu a:hover .nav-icon img {
@@ -438,6 +464,28 @@
     justify-content: center;
     padding: 2rem;
     padding-top: 6rem;
+  }
+
+  /* Page Content Areas - NEW */
+  .page-content {
+    display: none;
+    width: 100%;
+    animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .page-content.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   /* Grid Layout */
@@ -1120,6 +1168,25 @@
     border-radius: 2px;
   }
 
+  /* Simple Page Styles for Other Pages */
+  .simple-page {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .simple-page h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+  }
+
+  .simple-page p {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.8;
+  }
+
   /* Responsive */
   @media (max-width: 768px) {
     .currency-bar {
@@ -1386,7 +1453,7 @@
   
   <ul>
     <li>
-      <a href="#home">
+      <a href="#home" class="nav-link active" data-page="home">
         <div class="nav-icon">
           <img src="assets/HomeIcon.svg" alt="Home">
         </div>
@@ -1394,7 +1461,7 @@
       </a>
     </li>
     <li>
-      <a href="#leaderboard">
+      <a href="#leaderboard" class="nav-link" data-page="leaderboard">
         <div class="nav-icon">
           <img src="assets/LBIcon.svg" alt="Leaderboard">
         </div>
@@ -1402,7 +1469,7 @@
       </a>
     </li>
     <li>
-      <a href="#deposit">
+      <a href="#deposit" class="nav-link" data-page="deposit">
         <div class="nav-icon">
           <img src="assets/WalletIcon.svg" alt="Deposit">
         </div>
@@ -1410,7 +1477,7 @@
       </a>
     </li>
     <li>
-      <a href="#settings">
+      <a href="#settings" class="nav-link" data-page="settings">
         <div class="nav-icon">
           <img src="assets/GearIcon.svg" alt="Settings">
         </div>
@@ -1428,140 +1495,229 @@
   <div class="debug-info">
     <p><strong>Active Notifications:</strong> <span id="notificationCount">0</span></p>
     <p><strong>Max Capacity:</strong> 15</p>
+    <p><strong>Current Page:</strong> <span id="currentPageDebug">home</span></p>
   </div>
 </div>
 
 <!-- Overlay -->
 <div class="overlay" id="overlay"></div>
 
-<!-- Main Container with Grid Layout -->
+<!-- Main Container with Page Content -->
 <div class="container">
-  <div class="grid-layout">
-    <!-- Top Box - Notifications Only -->
-    <div class="content-box-top" id="notificationContainer">
-      <!-- Notification cubes will be added here -->
-    </div>
+  <!-- HOME PAGE -->
+  <div class="page-content active" id="page-home">
+    <div class="grid-layout">
+      <!-- Top Box - Notifications Only -->
+      <div class="content-box-top" id="notificationContainer">
+        <!-- Notification cubes will be added here -->
+      </div>
 
-    <!-- Left Column - First Box - Daily Bag of Loot -->
-    <div class="content-box-left-1">
-      <div class="daily-gift-content">
-        <div class="daily-gift-icon" id="lottieAnimation"></div>
-        <div class="daily-gift-text">
-          <div class="daily-gift-title">
-            <span class="star">★</span>
-            <span>Daily </span>
-            <span class="loot-text">Bag of Loot!</span>
+      <!-- Left Column - First Box - Daily Bag of Loot -->
+      <div class="content-box-left-1">
+        <div class="daily-gift-content">
+          <div class="daily-gift-icon" id="lottieAnimation"></div>
+          <div class="daily-gift-text">
+            <div class="daily-gift-title">
+              <span class="star">★</span>
+              <span>Daily </span>
+              <span class="loot-text">Bag of Loot!</span>
+            </div>
+            <div class="daily-gift-subtitle">Daily gift from us!</div>
           </div>
-          <div class="daily-gift-subtitle">Daily gift from us!</div>
+        </div>
+        <div class="gift-bag-decoration">
+          <img src="assets/DailyGift.svg" alt="Gift Bag">
         </div>
       </div>
-      <div class="gift-bag-decoration">
-        <img src="assets/DailyGift.svg" alt="Gift Bag">
-      </div>
-    </div>
 
-    <!-- Right Column - Tall Box (spans 2 rows) - REDESIGNED INVENTORY -->
-    <div class="content-box-right">
-      <div class="inventory-header">
-        <div class="inventory-icon" id="inventoryLottieAnimation"></div>
-        <h1 class="inventory-title">Inventory</h1>
-      </div>
-      <p class="inventory-subtitle">Your collected items</p>
-      
-      <!-- Item Grid -->
-      <div class="inventory-grid">
-        <div class="inventory-item">
-          <img src="assets/Box.svg" alt="Item" class="item-icon">
-          <span class="item-count">3</span>
+      <!-- Right Column - Tall Box (spans 2 rows) - REDESIGNED INVENTORY -->
+      <div class="content-box-right">
+        <div class="inventory-header">
+          <div class="inventory-icon" id="inventoryLottieAnimation"></div>
+          <h1 class="inventory-title">Inventory</h1>
         </div>
-        <div class="inventory-item">
-          <img src="assets/Coin.svg" alt="Item" class="item-icon">
-          <span class="item-count">12</span>
+        <p class="inventory-subtitle">Your collected items</p>
+        
+        <!-- Item Grid -->
+        <div class="inventory-grid">
+          <div class="inventory-item">
+            <img src="assets/Box.svg" alt="Item" class="item-icon">
+            <span class="item-count">3</span>
+          </div>
+          <div class="inventory-item">
+            <img src="assets/Coin.svg" alt="Item" class="item-icon">
+            <span class="item-count">12</span>
+          </div>
+          <div class="inventory-item">
+            <img src="assets/Star.png" alt="Item" class="item-icon">
+            <span class="item-count">7</span>
+          </div>
+          <div class="inventory-item empty"></div>
+          <div class="inventory-item empty"></div>
+          <div class="inventory-item empty"></div>
         </div>
-        <div class="inventory-item">
-          <img src="assets/Star.png" alt="Item" class="item-icon">
-          <span class="item-count">7</span>
-        </div>
-        <div class="inventory-item empty"></div>
-        <div class="inventory-item empty"></div>
-        <div class="inventory-item empty"></div>
+
+        <button class="view-all-btn">View All Items</button>
+
+        <!-- Floating Stars -->
+        <div class="floating-star"><img src="assets/Star.png" alt="star"></div>
+        <div class="floating-star"><img src="assets/Star.png" alt="star"></div>
+        <div class="floating-star"><img src="assets/Star.png" alt="star"></div>
+        <div class="floating-star"><img src="assets/Star.png" alt="star"></div>
+        <div class="floating-star"><img src="assets/Star.png" alt="star"></div>
       </div>
 
-      <button class="view-all-btn">View All Items</button>
+      <!-- Left Column - Second Box - UPDATED WITH SKILLS CHANNEL -->
+      <div class="content-box-left-2">
+        <svg viewBox="0 0 1200 400" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <path class="animated-path" opacity="0.35" 
+            d="M682.95 15.5C722.95 55.5 722.95 135.5 642.95 155.5C572.95 175.5 542.95 115.5 582.95 85.5C632.95 45.5 682.95 85.5 632.95 135.5C592.95 175.5 522.95 195.5 507.95 260.5C492.95 325.5 477.95 390.5 462.95 455.5" 
+            stroke="#2A8FA0" stroke-width="5" stroke-linecap="round" stroke-dasharray="10 18">
+            <animate
+              attributeName="stroke-dashoffset"
+              from="-140"
+              to="0"
+              dur="4s"
+              repeatCount="indefinite" />
+            <animate
+              attributeName="opacity"
+              values="0.35;0.65;0.35"
+              dur="3s"
+              repeatCount="indefinite" />
+          </path>
+        </svg>
 
-      <!-- Floating Stars -->
-      <div class="floating-star"><img src="assets/Star.png" alt="star"></div>
-      <div class="floating-star"><img src="assets/Star.png" alt="star"></div>
-      <div class="floating-star"><img src="assets/Star.png" alt="star"></div>
-      <div class="floating-star"><img src="assets/Star.png" alt="star"></div>
-      <div class="floating-star"><img src="assets/Star.png" alt="star"></div>
-    </div>
+        <div class="channel-content">
+          <h1 class="channel-title">Channel with <span class="free-text">FREE</span> Stuff!!</h1>
+          <p class="channel-subtitle">Join our channel to not miss anything!</p>
+          <a href="https://t.me/VoidGiftsOfficial" class="join-button">
+            <img src="assets/SmallPLPIcon.svg" alt="Icon">
+            Join Channel
+          </a>
+        </div>
 
-    <!-- Left Column - Second Box - UPDATED WITH SKILLS CHANNEL -->
-    <div class="content-box-left-2">
-      <svg viewBox="0 0 1200 400" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-        <path class="animated-path" opacity="0.35" 
-          d="M682.95 15.5C722.95 55.5 722.95 135.5 642.95 155.5C572.95 175.5 542.95 115.5 582.95 85.5C632.95 45.5 682.95 85.5 632.95 135.5C592.95 175.5 522.95 195.5 507.95 260.5C492.95 325.5 477.95 390.5 462.95 455.5" 
-          stroke="#2A8FA0" stroke-width="5" stroke-linecap="round" stroke-dasharray="10 18">
-          <animate
-            attributeName="stroke-dashoffset"
-            from="-140"
-            to="0"
-            dur="4s"
-            repeatCount="indefinite" />
-          <animate
-            attributeName="opacity"
-            values="0.35;0.65;0.35"
-            dur="3s"
-            repeatCount="indefinite" />
-        </path>
-      </svg>
-
-      <div class="channel-content">
-        <h1 class="channel-title">Channel with <span class="free-text">FREE</span> Stuff!!</h1>
-        <p class="channel-subtitle">Join our channel to not miss anything!</p>
-        <a href="https://t.me/VoidGiftsOfficial" class="join-button">
-          <img src="assets/SmallPLPIcon.svg" alt="Icon">
-          Join Channel
-        </a>
+        <img src="assets/BigPLPIcon.svg" alt="Big Icon" class="big-icon">
       </div>
 
-      <img src="assets/BigPLPIcon.svg" alt="Big Icon" class="big-icon">
-    </div>
+      <!-- Bottom Row - First Box -->
+      <div class="content-box-bottom-1">
+        <h1>Projects</h1>
+        <div class="decorative-line"></div>
+        <p>Bottom row first box content.</p>
+      </div>
 
-    <!-- Bottom Row - First Box -->
-    <div class="content-box-bottom-1">
-      <h1>Projects</h1>
-      <div class="decorative-line"></div>
-      <p>Bottom row first box content.</p>
+      <!-- Bottom Row - Second Box -->
+      <div class="content-box-bottom-2">
+        <h1>Contact</h1>
+        <div class="decorative-line"></div>
+        <p>Bottom row second box content.</p>
+      </div>
     </div>
+  </div>
 
-    <!-- Bottom Row - Second Box -->
-    <div class="content-box-bottom-2">
-      <h1>Contact</h1>
-      <div class="decorative-line"></div>
-      <p>Bottom row second box content.</p>
+  <!-- LEADERBOARD PAGE -->
+  <div class="page-content" id="page-leaderboard">
+    <div class="simple-page">
+      <h1>🏆 Leaderboard</h1>
+      <p>This is the leaderboard page. You can see top players and rankings here.</p>
+    </div>
+  </div>
+
+  <!-- DEPOSIT PAGE -->
+  <div class="page-content" id="page-deposit">
+    <div class="simple-page">
+      <h1>💰 Deposit</h1>
+      <p>This is the deposit page. Connect your wallet and manage your deposits here.</p>
+    </div>
+  </div>
+
+  <!-- SETTINGS PAGE -->
+  <div class="page-content" id="page-settings">
+    <div class="simple-page">
+      <h1>⚙️ Settings</h1>
+      <p>This is the settings page. Customize your experience and manage your account settings.</p>
     </div>
   </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
 <script>
+  // Navigation State Management
+  let currentPage = 'home';
+  
   const hamburger = document.getElementById('hamburger');
   const navMenu = document.getElementById('navMenu');
   const navClose = document.getElementById('navClose');
   const overlay = document.getElementById('overlay');
-  const navLinks = document.querySelectorAll('.nav-menu a');
+  const navLinks = document.querySelectorAll('.nav-link');
   const debugPanel = document.getElementById('debugPanel');
   const imitateWinBtn = document.getElementById('imitateWinBtn');
   const clearAllBtn = document.getElementById('clearAllBtn');
   const notificationContainer = document.getElementById('notificationContainer');
   const notificationCount = document.getElementById('notificationCount');
   const currencyAmount = document.getElementById('currencyAmount');
+  const currentPageDebug = document.getElementById('currentPageDebug');
 
   let notifications = [];
   const MAX_NOTIFICATIONS = 15;
   let virtualCurrency = 0;
+
+  // Page Navigation Function
+  function navigateToPage(pageName) {
+    // Hide all pages
+    document.querySelectorAll('.page-content').forEach(page => {
+      page.classList.remove('active');
+    });
+    
+    // Show selected page
+    const selectedPage = document.getElementById(`page-${pageName}`);
+    if (selectedPage) {
+      selectedPage.classList.add('active');
+    }
+    
+    // Update navigation links
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.dataset.page === pageName) {
+        link.classList.add('active');
+      }
+    });
+    
+    // Update debug panel
+    currentPageDebug.textContent = pageName;
+    
+    // Update current page variable
+    currentPage = pageName;
+    
+    // Update URL hash without scrolling
+    history.pushState(null, null, `#${pageName}`);
+  }
+
+  // Handle navigation link clicks
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const pageName = link.dataset.page;
+      navigateToPage(pageName);
+      
+      // Close menu if open
+      if (navMenu.classList.contains('active')) {
+        toggleMenu();
+      }
+    });
+  });
+
+  // Handle browser back/forward buttons
+  window.addEventListener('hashchange', () => {
+    const hash = window.location.hash.slice(1) || 'home';
+    navigateToPage(hash);
+  });
+
+  // Initialize page on load
+  window.addEventListener('load', () => {
+    const hash = window.location.hash.slice(1) || 'home';
+    navigateToPage(hash);
+  });
 
   function updateCurrencyDisplay() {
     const formattedAmount = virtualCurrency.toLocaleString();
@@ -1653,14 +1809,6 @@
     if (debugPanel.classList.contains('active')) {
       debugPanel.classList.remove('active');
     }
-  });
-
-  navLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-      if (navMenu.classList.contains('active')) {
-        toggleMenu();
-      }
-    });
   });
 
   document.addEventListener('keydown', (e) => {
